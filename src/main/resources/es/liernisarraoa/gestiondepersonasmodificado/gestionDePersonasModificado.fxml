@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.liernisarraoa.gestiondepersonasmodificado.Controlador.HelloController">
+
+   <left>
+      <!-- Definición del contenedor lateral izquierdo -->
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="186.0">
+         <children>
+            <!-- Definición de los componentes hijos del contenedor VBox -->
+            <Label text="Nombre :">
+               <!-- Definición de un componente Label para mostrar el texto "Nombre :" -->
+               <VBox.margin>
+                  <Insets left="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nombreTextField">
+               <!-- Definición de un componente TextField para ingresar el nombre -->
+               <VBox.margin>
+                  <Insets left="10.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Apellido :">
+               <!-- Definición de un componente Label para mostrar el texto "Apellido :" -->
+               <VBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="apellidoTextField">
+               <!-- Definición de un componente TextField para ingresar el apellido -->
+               <VBox.margin>
+                  <Insets left="10.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Label text="Edad :">
+               <!-- Definición de un componente Label para mostrar el texto "Edad :" -->
+               <VBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="edadTextField">
+               <!-- Definición de un componente TextField para ingresar la edad -->
+               <VBox.margin>
+                  <Insets left="10.0" right="5.0" top="5.0" />
+               </VBox.margin>
+            </TextField>
+            <Button fx:id="btnAniadirPersona" mnemonicParsing="false" onAction="#aniadirPersona" text="Añadir persona">
+               <!-- Definición de un componente Button para agregar una persona -->
+               <VBox.margin>
+                  <Insets left="45.0" top="20.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <!-- Definición del contenedor central -->
+      <TableView fx:id="tablaPersonas" prefHeight="400.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <columns>
+            <!-- Definición de las columnas de la tabla -->
+            <TableColumn id="nombre" fx:id="columnaNombre" maxWidth="Infinity" minWidth="140.0" text="Nombre" />
+            <!-- Definición de la columna "Nombre" -->
+            <!-- El atributo minWidth se establece en 140 para definir el ancho mínimo de la columna -->
+            <!-- El atributo maxWidth se establece en Infinity para permitir que la columna se expanda -->
+            <TableColumn id="apellido" fx:id="columnaApellido" maxWidth="Infinity" minWidth="190.0" text="Apellido" />
+            <!-- Definición de la columna "Apellido" -->
+            <!-- El atributo minWidth se establece en 190 para definir el ancho mínimo de la columna -->
+            <!-- El atributo maxWidth se establece en Infinity para permitir que la columna se expanda -->
+            <TableColumn id="edad" fx:id="columnaEdad" maxWidth="Infinity" minWidth="75.0" text="Edad" />
+            <!-- Definición de la columna "Edad" -->
+            <!-- El atributo minWidth se establece en 75 para definir el ancho mínimo de la columna -->
+            <!-- El atributo maxWidth se establece en Infinity para permitir que la columna se expanda -->
+         </columns>
+         <BorderPane.margin>
+            <Insets bottom="20.0" right="10.0" top="20.0" />
+         </BorderPane.margin>
+      </TableView>
+   </center>
+   <bottom>
+      <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER" alignment="CENTER">
+         <children>
+            <Button fx:id="btnModificar" mnemonicParsing="false" onAction="#modificarPersona" text="Modificar">
+               <HBox.margin>
+                  <Insets left="250.0" top="10.0"/>
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarPersona" text="Eliminar">
+               <HBox.margin>
+                  <Insets left="70.0" top="10.0"/>
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+</BorderPane>
