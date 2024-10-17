@@ -43,11 +43,22 @@ public class HelloController implements Initializable {
 
     /**
      * Método que se ejecuta al pulsar el botón "Añadir persona".
-     * Valida los campos de texto y añade una nueva persona a la tabla si son válidos.
      *
      * @param actionEvent evento de acción que se produce al pulsar el botón
      */
     public void aniadirPersona(ActionEvent actionEvent) {
+        verificacionPersona();
+        if (errores.isEmpty()) {
+            aniadirPersonaTabla();
+        } else {
+            alertaError();
+        }
+    }
+
+    /**
+     * Valida los campos de texto y añade una nueva persona a la tabla si son válidos.
+     */
+    private void verificacionPersona() {
         errores = "";
         escenaAplicacion = HelloApplication.getScene();
         if (nombreTextField.getText().isEmpty()) {
@@ -64,11 +75,6 @@ public class HelloController implements Initializable {
             } catch (NumberFormatException e) {
                 errores += "El campo edad tiene que ser númerico.\n";
             }
-        }
-        if (errores.isEmpty()) {
-            aniadirPersonaTabla();
-        } else {
-            alertaError();
         }
     }
 
@@ -115,14 +121,52 @@ public class HelloController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Método que se ejecuta al pulsar el botón "Modificar".
+     * Moodifica una persona de la tabla de personas.
+     * Comprueba si la persona ya existe en la tabla antes de modificarlo.
+     *
+     * @param actionEvent evento de acción que se produce al pulsar el botón
+     */
     public void modificarPersona(ActionEvent actionEvent){
-
+        Personas personaAEliminar = tablaPersonas.getSelectionModel().getSelectedItem();
+        verificacionPersona();
+        if (errores.isEmpty()) {
+            Personas p = new Personas(nombreTextField.getText(), apellidoTextField.getText(), Integer.parseInt(edadTextField.getText()));
+            if(personaAEliminar != null && !tablaPersonas.getItems().contains(p)){
+                tablaPersonas.getItems().remove(personaAEliminar);
+                tablaPersonas.getItems().add(p);
+                alertaModificarPersona();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(escenaAplicacion.getWindow());
+                alert.setHeaderText(null);
+                alert.setTitle("Persona duplicada");
+                alert.setContentText("La persona no se puede modificar ya que existe una Persona identica en la tabla.");
+                alert.showAndWait();
+            }
+        } else {
+            alertaError();
+        }
     }
 
+    /**
+     * Método que se ejecuta al pulsar el botón "Eliminar".
+     * Elimina una persona de la tabla
+     *
+     * @param actionEvent evento de acción que se produce al pulsar el botón
+     */
     public void eliminarPersona(ActionEvent actionEvent){
 
     }
 
+    /**
+     * Método que se ejecuta al pulsar un Objeto de tipo Persona de la tabla.
+     * Al clicar una persona de la tabla se muestra su informacion en los siguientes TextFiel:
+     * nombreTextField, apellidoTextField, edadTextField
+     *
+     * @param mouseEvent evento de mouse, reacciona al clicar
+     */
     public void clicarPersona(MouseEvent mouseEvent) {
         Personas personaSeleccionada = tablaPersonas.getSelectionModel().getSelectedItem();
         try{
@@ -134,6 +178,9 @@ public class HelloController implements Initializable {
         }
     }
 
+    /**
+     * Muestra una alerta de error por si no se ha seleccionado una Persona.
+     */
     private void alertaErrorPersonaNula() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(escenaAplicacion.getWindow());
@@ -144,7 +191,20 @@ public class HelloController implements Initializable {
     }
 
     /**
+     * Muestra una alerta de información para confirmar que se ha modificado una persona correctamente.
+     */
+    private void alertaModificarPersona() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(escenaAplicacion.getWindow());
+        alert.setHeaderText(null);
+        alert.setTitle("Persona modificada");
+        alert.setContentText("Persona modificada correctamente.");
+        alert.showAndWait();
+    }
+
+    /**
      * Método que se ejecuta al inicializar el controlador.
+     * Configura la seleccion de la tabla como SINGLE.
      * Configura las columnas de la tabla de personas y establece sus anchos.
      * La parte de prefWifthProperty().bind(tabla.Personas.widthProperty().multiply(0.3))
      * y demás es para que las columnas se redimensionen.
