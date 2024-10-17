@@ -1,5 +1,11 @@
 package es.liernisarraoa.gestiondepersonasmodificado.Modelo;
 
+/**
+ * Clase que representa a una persona con sus atributos básicos.
+ *
+ * @author Lierni
+ * @version 1.0
+ */
 public class Personas {
     private String nombre;
     private String apellido;

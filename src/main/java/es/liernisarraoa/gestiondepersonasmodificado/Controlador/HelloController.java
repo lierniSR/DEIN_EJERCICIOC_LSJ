@@ -13,6 +13,12 @@ import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Clase principal de la aplicación.
+ *
+ * @author Lierni
+ * @version 1.0
+ */
 public class HelloController implements Initializable {
     private String errores = "";
     private Scene escenaAplicacion;
@@ -86,6 +92,10 @@ public class HelloController implements Initializable {
         Personas p = new Personas(nombreTextField.getText(), apellidoTextField.getText(), Integer.parseInt(edadTextField.getText()));
         if (!tablaPersonas.getItems().contains(p)) {
             tablaPersonas.getItems().add(p);
+            nombreTextField.setText("");
+            apellidoTextField.setText("");
+            edadTextField.setText("");
+            tablaPersonas.getSelectionModel().clearSelection();
             alertaAniadirPersona();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -136,6 +146,10 @@ public class HelloController implements Initializable {
             if(personaAEliminar != null && !tablaPersonas.getItems().contains(p)){
                 tablaPersonas.getItems().remove(personaAEliminar);
                 tablaPersonas.getItems().add(p);
+                nombreTextField.setText("");
+                apellidoTextField.setText("");
+                edadTextField.setText("");
+                tablaPersonas.getSelectionModel().clearSelection();
                 alertaModificarPersona();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -157,7 +171,12 @@ public class HelloController implements Initializable {
      * @param actionEvent evento de acción que se produce al pulsar el botón
      */
     public void eliminarPersona(ActionEvent actionEvent){
-
+        tablaPersonas.getItems().remove(tablaPersonas.getSelectionModel().getSelectedItem());
+        nombreTextField.setText("");
+        apellidoTextField.setText("");
+        edadTextField.setText("");
+        tablaPersonas.getSelectionModel().clearSelection();
+        alertaEliminarPersona();
     }
 
     /**
@@ -199,6 +218,18 @@ public class HelloController implements Initializable {
         alert.setHeaderText(null);
         alert.setTitle("Persona modificada");
         alert.setContentText("Persona modificada correctamente.");
+        alert.showAndWait();
+    }
+
+    /**
+     * Muestra una alerta de información para confirmar que se ha eliminado una persona correctamente.
+     */
+    private void alertaEliminarPersona() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.initOwner(escenaAplicacion.getWindow());
+        alert.setHeaderText(null);
+        alert.setTitle("Persona eliminada");
+        alert.setContentText("Persona eliminado correctamente.");
         alert.showAndWait();
     }
 

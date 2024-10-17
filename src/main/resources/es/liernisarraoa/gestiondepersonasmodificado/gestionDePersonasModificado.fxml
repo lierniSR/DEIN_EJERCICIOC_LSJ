@@ -96,13 +96,16 @@
       </TableView>
    </center>
    <bottom>
+      <!-- Definición del contenedor horizontal -->
       <HBox prefHeight="45.0" prefWidth="600.0" BorderPane.alignment="CENTER" alignment="CENTER">
          <children>
+            <!-- Definición de un componente Button para modificar una persona -->
             <Button fx:id="btnModificar" mnemonicParsing="false" onAction="#modificarPersona" text="Modificar">
                <HBox.margin>
                   <Insets left="250.0" top="10.0"/>
                </HBox.margin>
             </Button>
+            <!-- Definición de un componente Button para eliminar una persona -->
             <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarPersona" text="Eliminar">
                <HBox.margin>
                   <Insets left="70.0" top="10.0"/>

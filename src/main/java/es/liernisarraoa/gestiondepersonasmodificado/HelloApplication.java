@@ -7,7 +7,11 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**
+ * Controlador de la aplicación de gestión de personas modificado.
+ * @author Lierni
+ * @version 1.0
+ */
 public class HelloApplication extends Application {
     private static Scene scene;
 
