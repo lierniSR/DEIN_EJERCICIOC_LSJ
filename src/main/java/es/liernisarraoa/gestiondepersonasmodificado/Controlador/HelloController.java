@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -114,12 +115,32 @@ public class HelloController implements Initializable {
         alert.showAndWait();
     }
 
-    public void modificarPersona(){
+    public void modificarPersona(ActionEvent actionEvent){
 
     }
 
-    public void eliminarPersona(){
+    public void eliminarPersona(ActionEvent actionEvent){
 
+    }
+
+    public void clicarPersona(MouseEvent mouseEvent) {
+        Personas personaSeleccionada = tablaPersonas.getSelectionModel().getSelectedItem();
+        try{
+            nombreTextField.setText(personaSeleccionada.getNombre());
+            apellidoTextField.setText(personaSeleccionada.getApellido());
+            edadTextField.setText(String.valueOf(personaSeleccionada.getEdad()));
+        } catch(NullPointerException e){
+            alertaErrorPersonaNula();
+        }
+    }
+
+    private void alertaErrorPersonaNula() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(escenaAplicacion.getWindow());
+        alert.setHeaderText(null);
+        alert.setTitle("Error");
+        alert.setContentText("No se ha seleccionado ninguna persona.");
+        alert.showAndWait();
     }
 
     /**
@@ -134,6 +155,7 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        tablaPersonas.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         columnaEdad.setCellValueFactory(new PropertyValueFactory<>("edad"));
         columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         columnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
